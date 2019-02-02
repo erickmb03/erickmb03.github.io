@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+
+    <title>Health Insurance Coverage</title>
+  
+  </head>
+
+  <body>
+
+    
+    
+    <!-- Nav bar -->
+    <div id="divid-navbar" class="container-fluid col-12">  
+        <nav class="navbar navbar-light col-12">
+            <div class="navbar-brand">
+                <P class="material-icons">
+                    arrow_back
+                </P> 
+                <span class="navbar-text"> 
+                    [Project] Health Insurance Coverage
+                </span>
+            </div>
+        </nav>
+    </div>
+
+     <div id="divid-graph" class="container col-12 ">   
+        
+        <div> 
+            <br> 
+        </div>
+        
+        <div id="divid-graph-head" class="container">
+            <div class="row align-items-center">
+                <div class="col-4">
+                    <img src="https://cdn.freebiesupply.com/logos/large/2x/department-of-health-human-services-usa-1-logo-png-transparent.png" alt="#">
+                </div>
+                <div class="col-8">
+                    <h1>Health insurance coverage by state</h1>
+                    <h2>Coverage rates before and after the Affordable Care Act</h2>
+                </div>
+            </div>
+        </div>   
+
+        <div> 
+                <br> 
+        </div>
+
+        <div id="divid-graph-1" class="container">
+            <div id="divid-graph-1-row" class="row align-items-center">
+                <div id = "divid-graph-1-1" class="col-4">
+                    <br>
+                    <h2>Major States With Better Coverage</h2>
+                    <br>
+                    <div id="graph-1-1">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+    <script>
+        d3.dsv(",", "states.csv")
+            .then(function(data) {
+
+                var uninsured_rate_2015 = []
+
+                for(var i = 0; i < 5; i++) {
+                    uninsured_rate_2015.push(data[i].Uninsured_Rate_2015)
+                    console.log(data[i].Uninsured_Rate_2015); 
+                }
+    
+
+
+        d3.select("#graph-1-1")
+            .append("svg")
+              .attr("width","350")
+              .attr("height","260")
+            .append("g")
+              .selectAll("rect")
+              .data(uninsured_rate_2015) 
+              .enter()
+            .append("rect")
+              .attr("x", function(d) { x = x + 76; return x; })
+              .attr("y", "10")//function(d) { return 500 - Math.round( d / 224399 * 100) - 40; })
+              .attr("width","30")
+              .attr("height","20") //function(d) { return Math.round( d / 224399 * 100); }) //la d es la que itera sore cada elemento de la data
+              .style("fill","green");                           
+        });
+    </script>
+
+    <style>
+        #divid-navbar {
+            background: #32447a;
+            color: #fff;
+        }
+        .navbar {
+            height: 64px;
+            width: 100%;
+        }
+        .material-icons {
+            padding: 0%;
+            margin: 1%;                
+            width: 30px;
+            height: 16px;
+            box-sizing: content-box;
+            line-height: 15px;
+            float: left;
+            cursor: pointer;  
+        }
+        .navbar-brand {
+            padding: 0%;
+            margin: 0%;
+            color: white !important;
+            font-family: 'Roboto', sans-serif;
+            font-size: 20px;                
+            line-height: 24px;
+        }            
+        .navbar-text {
+            padding: 0%;
+            margin: 0%;
+            color: white !important;
+            font-family: 'Roboto', sans-serif;
+            font-size: 20px;                
+            line-height: 24px;
+            font-weight: normal;
+            display: inline;
+        }
+        #divid-graph {
+            width: 1200px;
+            height: 1015px;
+            }
+        #divid-graph-head {
+
+            }
+        img {
+             width: 150px;
+            height: 150px;                
+        }
+        h1 {
+            font-family: 'Roboto', sans-serif;
+            font-size: 32px;  
+            color: #666666;
+        }
+        h2 {
+            font-family: 'Roboto', sans-serif;
+            font-size: 18px;
+            color: #666666;  
+        }
+        #divid-graph-1 {
+            
+        }
+        #divid-graph-1-row {
+
+        }
+        #divid-graph-1-1 {
+            width: 400px;
+            height: 500px;   
+        }
+        #graph-1-1{
+            width: 400px;
+            height: 400px;
+        }
+    </style>
+
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  </body>
+</html>
